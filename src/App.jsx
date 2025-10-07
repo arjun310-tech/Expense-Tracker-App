@@ -16,12 +16,18 @@ function App() {
   const [expenses, setExpenses] = useState(getInitialExpenses);
   const [filter, setFilter] = useState("All");
   const [page, setPage] = useState("add");
+  const [edit, setEdit] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("expenses", JSON.stringify(expenses));
   }, [expenses]);
 
   const addExpense = (expense) => setExpenses([expense, ...expenses]);
+  const editExpense = (id) => {
+    const expenseToEdit = expenses.find((e) => e.id === id);
+    setEdit(expenseToEdit);
+    setPage("add");
+  };
   const deleteExpense = (id) =>
     setExpenses(expenses.filter((e) => e.id !== id));
 
@@ -45,11 +51,24 @@ function App() {
           </div>
         )}
 
-        {page === "add" && <ExpenseForm addExpense={addExpense} />}
+        {page === "add" && (
+          <ExpenseForm
+            addExpense={addExpense}
+            edit={edit}
+            setEdit={setEdit}
+            expenses={expenses}
+            setExpenses={setExpenses}
+            setPage={setPage}
+          />
+        )}
         {page === "list" && (
           <>
             <ExpenseFilter filter={filter} setFilter={setFilter} />
-            <ExpenseList expenses={filtered} deleteExpense={deleteExpense} />
+            <ExpenseList
+              expenses={filtered}
+              deleteExpense={deleteExpense}
+              editExpense={editExpense}
+            />
           </>
         )}
       </div>

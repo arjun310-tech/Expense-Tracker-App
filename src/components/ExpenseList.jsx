@@ -1,6 +1,6 @@
 import ExpenseItem from "./ExpenseItem";
 
-function ExpenseList({ expenses, deleteExpense }) {
+function ExpenseList({ expenses, deleteExpense, editExpense }) {
   if (expenses.length === 0) {
     return <p>No expenses found!</p>;
   }
@@ -8,7 +8,12 @@ function ExpenseList({ expenses, deleteExpense }) {
   return (
     <div>
       {expenses.map((exp) => (
-        <ExpenseItem key={exp.id} expense={exp} deleteExpense={deleteExpense} />
+        <ExpenseItem
+          key={exp.id}
+          expense={exp}
+          editExpense={editExpense}
+          deleteExpense={deleteExpense}
+        />
       ))}
     </div>
   );

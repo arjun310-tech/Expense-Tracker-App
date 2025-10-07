@@ -1,4 +1,6 @@
-function ExpenseItem({ expense, deleteExpense }) {
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+function ExpenseItem({ expense, deleteExpense, editExpense }) {
   return (
     <div className="expense-item">
       <div>
@@ -7,8 +9,11 @@ function ExpenseItem({ expense, deleteExpense }) {
           ₹{expense.amount} - {expense.category}
         </p>
       </div>
+      <button onClick={() => editExpense(expense.id)} className="edit-btn">
+        <FaEdit />
+      </button>
       <button onClick={() => deleteExpense(expense.id)} className="delete-btn">
-        Delete
+        <MdDeleteForever />
       </button>
     </div>
   );

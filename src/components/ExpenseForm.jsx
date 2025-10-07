@@ -1,15 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function ExpenseForm({ addExpense }) {
+function ExpenseForm({
+  addExpense,
+  edit,
+  setEdit,
+  expenses,
+  setExpenses,
+  setPage,
+}) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("Food");
 
+  useEffect(() => {
+    if (edit) {
+      setTitle(edit.title);
+      setAmount(edit.amount);
+      setCategory(edit.category);
+    }
+  }, [edit]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    addExpense({ id: Date.now(), title, amount: Number(amount), category });
+    if (edit) {
+      const updated = expenses.map((exp) =>
+        exp.id === edit.id ? { ...exp, title, amount, category } : exp
+      );
+      setExpenses(updated);
+      setEdit(null);
+    } else {
+      const updated = {
+        id: Date.now(),
+        title,
+        amount: Number(amount),
+        category,
+      };
+      setExpenses([updated, ...expenses]);
+    }
     setTitle("");
     setAmount("");
+    setPage("list");
   };
 
   return (
@@ -41,7 +71,7 @@ function ExpenseForm({ addExpense }) {
         <option>Shopping</option>
       </select>
       <center>
-        <button className="add-btn">Add Expense</button>
+        <button type="submit">{edit ? "Update Expense" : "Add Expense"}</button>
       </center>
     </form>
   );
