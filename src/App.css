@@ -141,7 +141,7 @@ select:focus {
 /* Expense list */
 .expense-item {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-between;
   align-items: center;
   background: #f9fbfc;
   padding: 14px;
@@ -171,10 +171,10 @@ select:focus {
   transform: scale(1.1);
 }
 
-.edit-btn{
-  margin: 5px;
+.edit-btn {
+  margin-right: 5px;
   background: linear-gradient(135deg, #2b3fbe, #3553e7);
-  padding:8px 8px;
+  padding: 8px 8px;
   border: none;
   border-radius: 6px;
   color: white;
